@@ -10,7 +10,8 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-//ENTREGABLE 1
+//ENTREGABLE 1.1 - 12 TESTS PARAMETRIZADOS
+
 @RunWith(Parameterized.class)
 public class IdentifierTest
 {

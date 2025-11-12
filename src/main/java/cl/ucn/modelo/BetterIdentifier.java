@@ -2,7 +2,7 @@ package cl.ucn.modelo;
 
 public class BetterIdentifier
 {
-    //ENTREGABLE 4
+    //ENTREGABLE 4 - ENUM DE CODIGO DE ERRORES
     public IdentifierErrorEnum validateIdentifierMejorado(String s)
     {
         if(s == null || s.isEmpty())
