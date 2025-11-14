@@ -1,52 +1,42 @@
 # Laboratorio II – Diseño y Evaluación Avanzada de Casos de Prueba
 
+Vicente Ruiz Escobar - Pablo Jorquera Herrera
 ---
 
-## Objetivo General
+A continuación se detalla la información y reglas para los procesos de Testing y elementos solicitados en el enunciado.
 
-Este laboratorio tiene como objetivo que el estudiante aplique técnicas avanzadas de diseño de casos de prueba, cubriendo 
-no solo tests tradicionales unitarios, sino también particiones de equivalencia, análisis de frontera y property-based 
-testing, además de proponer una mejora y refactor sobre el método provisto.
+# 1) JUnit Test Suite Completo
+### 12 Tests Parametrizados
 
-El objetivo final es lograr un diseño de pruebas que pueda justificar cobertura, correctitud y robustez en un proceso 
-real de testing profesional.
+| Parámetro | Equivalencia | Test | Resultado |
+| :-------: | :------: | :-------: | :-------: |
+| Frontera | L = 1 | "a" | True |
+| Longitud | 1 <= L <= 5 | "abc" | True |
+| Chars | Letra + Número | "A1" | True |
+| Frontera | L = 5 | "abc12" | True |
+| Char Inicial | Letra | "Z" | True |
+| Chars | Espacio | "a1234" | True |
 
----
+| Longitud | L = 0 | "" | False |
+| Longitud | L > 5 | "abcdef" | False |
+| Frontera | L = 6 | "abcdef" | False |
+| Char Inicial | Número | "1ab" | False |
+| Char Inicial | Símbolo | "$ab" | False |
 
-## Contexto del Código
 
-Se entrega una clase `Identifier` que valida un identificador según ciertas reglas. Esta clase debe ser modificada, 
-extendida y testeada rigurosamente.  Además, se requiere implementar una nueva clase adicional llamada `IdentifierFixer`.
-
----
-
-## Descripción del Código
-
-La clase `Identifier` contiene un método `validateIdentifier(String s)` que valida si una cadena cumple con las reglas 
-siguientes:
-
-1. El identificador debe comenzar con una **letra** (mayúscula o minúscula).
-2. Los caracteres siguientes (si los hay) pueden ser **letras o dígitos**.
-3. La longitud total del identificador debe ser **de 1 a 5 caracteres** (inclusive).
-
-Ejemplos:
-
-- `"abc"` → Válido
-- `"1de"` → Inválido (comienza con un dígito)
-- `"abcdef"` → Inválido (más de 5 caracteres)
-
----
-
-## Entregables Obligatorios
-
-El estudiante debe entregar lo siguiente en `src/test/java/...`:
-
-### 1) JUnit Test Suite Completo
-- mínimo 12 casos parametrizados obligatorios usando `@RunWith(Parameterized.class)`. Debe investigar como crear tests
-parametrizados en JUnit 4 [(documentación)]((https://junit.org/junit4/javadoc/4.12/org/junit/runners/Parameterized.html).).
-- tests adicionales unitarios NO parametrizados (mínimo 10)
-- casos diseñados explícitamente desde particiones de equivalencia + frontera
-
+Longitud
+- `L = 0` (Inválida) -> Ejemplo: ``` "" ```	-> Retorna false
+- `L > 5` (Inválida) -> Ejemplo: ``` "abcdefg``` -> Retorna false
+- ``
+- ``
+- ``
+- ``
+- ``
+- ``
+- ``
+- ``
+- ``
+- ``
 ### 2) Property-Based Testing
 
 Property Based Testing (PBT) es una técnica de testing donde en vez de escribir casos de prueba específicos manuales,
