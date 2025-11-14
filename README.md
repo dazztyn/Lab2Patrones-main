@@ -76,10 +76,52 @@ A continuación se detallan la serie de reglas aplicadas a un string inválido p
 - Si el string supera el máximo largo permitido (en este caso: 5), se trunca hasta que el string tenga un `largo = 5`.
 
 ### 4) Refactor de Identifier
-Cuando el identificador es inválido, el método `validateIdentifier` debe indicar POR QUÉ falla (enum con mínimo 4 causas).
+Actualmente, la clase Identifier se encarga de validar a través de ciertas reglas definidas la validez de un string dependiendo de si
+estas se cumple o no. El detalle es que no se dice específicamente cuál es la razón de que un string sea rechazado, por lo que para mejorar esto se
+realizaron los siguientes cambios:
 
----
+Se creó un nuevo archivo `IdentifierErrorEnum.java` que contiene las siguientes etiquetas:
 
+- VALIDO
+- ERROR_VACIO
+- ERROR_LONGITUD
+- ERROR_CHAR_INICIAL
+- ERROR_CHAR
+
+Posteriormente, se creó el archivo `BetterIdentifier.java` (para no alterar el resto de los entregables) en donde se intentará
+replicar el funcionamiento de la clase Identifier original mediante el uso de las etiquetas que creamos anteriormente.
+
+Por ejemplo, antiguamente para validar si el largo del string no excedía los 5 carácteres, se tenía lo siguiente:
+
+```
+        if (valid_id && (s.length() >= 1) && (s.length() < 6)) {
+            return true;
+        } else {
+            return false;
+        }
+```
+Ahora, con la refactorización, tenemos algo más sencillo y legible
+
+```
+        if(s == null || s.isEmpty())
+        {
+            return IdentifierErrorEnum.ERROR_VACIO;
+        }
+
+        if(s.length() > 5)
+        {
+            return IdentifierErrorEnum.ERROR_LONGITUD;
+        }
+```
+
+Esto nos permite saber cuál es el error que evita que el string sea válido. La refactorización del método realiza la verificación
+en un nuevo método llamado `validateIdentifierMejorado`
+
+1. Primero se verifica que el string no sea null o vacío, si lo es se hace return de forma inmediata con la etiqueta ERROR_VACIO. Con esto también podemos asumir que el string tendrá largo 1 como mínimo y solucionar un problema del Identifier original, ya que no se cubre ninguno de esos casos con excepciones o condicionales.
+2. Lo siguiente que se verifica es que el largo del string no sea mayor a 5, si lo es, se retorna con la etiqueta ERROR_LONGITUD. Para esto solo se revisa directamente el largo con .length en lugar del ciclo while con las múltiples condicionales que había en el Identifier original.
+3. Posteriormente se lee el primer carácter del string, y se verifica manualmente con la función isLetter para revisar que no sea un dígito o un carácter. Si el primer carácter no es una letra, se retorna con la etiqueta ERROR_CHAR_INICIAL.
+4. En caso de que el char inicial sea válido, se recorre con un ciclo for el resto del string y se revisa cada carácter, utilizando las funciones isLetter y isLetterOrDigit podemos verificar rápidamente que sea un carácter válido. Si hay un carácter invalido se retorna con la etiqueta ERROR_CHAR.
+5. Si todo ha salido bien, se retorna con la etiqueta VALIDO.
 ## Sección que debe agregarse en el README 
 
 > ### Justificación de Refactor aplicado al método base
