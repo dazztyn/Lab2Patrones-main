@@ -13,30 +13,30 @@ A continuación se detalla la información y reglas para los procesos de Testing
 | Frontera | L = 1 | "a" | True |
 | Longitud | 1 <= L <= 5 | "abc" | True |
 | Chars | Letra + Número | "A1" | True |
-| Frontera | L = 5 | "abc12" | True |
+| Frontera | L = 5 | "abcde" | True |
 | Char Inicial | Letra | "Z" | True |
 | Chars | Espacio | "a1234" | True |
-
-| Longitud | L = 0 | "" | False |
+| Char Inicial | Número | "1abc" | False |
 | Longitud | L > 5 | "abcdef" | False |
-| Frontera | L = 6 | "abcdef" | False |
-| Char Inicial | Número | "1ab" | False |
-| Char Inicial | Símbolo | "$ab" | False |
+| Chars | Espacio | "a b" | False |
+| Chars | Símbolo No Permitido | "a!" | False |
+| Char Inicial | Símbolo No Permitido | "_a" | False |
+| Frontera | L = 6 | "abc345" | False |
 
+### 10 Tests no Parametrizados
+| Método | Tipo | Input | Resultado Esperado |
+| :-------: | :------: | :-------: | :-------: |
+| testValidLength1 | Longitud | "a" | assertTrue |
+| testValidLength2 | Longitud | "abc12" | assertTrue |
+| testValidFormat1 | Solo letras | "Hola" | assertTrue |
+| testValidFormat2 | Letras + Numeros | "M4V3N" | assertTrue |
+| testInvalidFormat1 | Número Inicial | "7Up" | assertFalse |
+| testInvalidFormat2 | Solo chars inválidos | "$$$" | assertFalse |
+| testInvalidFormat3 | Combinación con char inválido | "Mi$h" | assertFalse |
+| testInvalidLength | Longitud | "patrones" | assertFalse |
+| testInvalidSpace1 | Espacio | "a b c" | assertFalse |
+| testInvalidSpace2 | Espacio | " abc" | assertFalse |
 
-Longitud
-- `L = 0` (Inválida) -> Ejemplo: ``` "" ```	-> Retorna false
-- `L > 5` (Inválida) -> Ejemplo: ``` "abcdefg``` -> Retorna false
-- ``
-- ``
-- ``
-- ``
-- ``
-- ``
-- ``
-- ``
-- ``
-- ``
 ### 2) Property-Based Testing
 
 Property Based Testing (PBT) es una técnica de testing donde en vez de escribir casos de prueba específicos manuales,
